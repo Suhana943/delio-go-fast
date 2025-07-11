@@ -1,0 +1,1642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+      /* ===== BASE STYLES ===== */
+:root {
+  --primary: #ff6b98;       /* Vibrant pink */
+  --secondary: #a18aff;     /* Soft purple */
+  --accent: #5ce1e6;        /* Tiffany blue */
+  --gold: #d4af37;          /* Luxury gold */
+  --dark: #1a1a2e;          /* Deep navy */
+  --dark: #000;
+--glass: rgba(255, 255, 255, 0.5);
+--glass-border: rgba(0, 0, 0, 0.1);
+        /* Soft pinkish white */
+  
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: radial-gradient(ellipse at top, #fffce0 0%, #ffffff 100%);
+  font-family: 'Montserrat', sans-serif;
+  color: var(--dark); /* Text must be dark now */
+  overflow-x: hidden;
+  perspective: 1000px;
+  min-height: 100vh;
+  position: relative;
+}
+
+
+/* ===== ANIMATED BACKGROUND ELEMENTS ===== */
+.cosmic-dust {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -2;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(255, 107, 152, 0.1) 0%, transparent 25%),
+    radial-gradient(circle at 80% 70%, rgba(161, 138, 255, 0.1) 0%, transparent 25%),
+    radial-gradient(circle at 40% 60%, rgba(92, 225, 230, 0.1) 0%, transparent 25%);
+}
+
+.glow-orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.3;
+  animation: float 15s infinite ease-in-out;
+}
+
+.glow-orb:nth-child(1) {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, var(--primary), transparent 70%);
+  top: 20%;
+  left: 10%;
+  animation-delay: 0s;
+}
+
+.glow-orb:nth-child(2) {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, var(--secondary), transparent 70%);
+  bottom: 10%;
+  right: 15%;
+  animation-delay: 3s;
+}
+
+.glow-orb:nth-child(3) {
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, var(--accent), transparent 70%);
+  top: 50%;
+  left: 50%;
+  animation-delay: 6s;
+}
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(10%, 5%) scale(1.05); }
+  50% { transform: translate(5%, 10%) scale(0.95); }
+  75% { transform: translate(-5%, -5%) scale(1.1); }
+}
+
+/* ===== TYPOGRAPHY & HEADER ===== */
+.header {
+  text-align: center;
+  padding: 5rem 2rem 3rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  border-radius: 3px;
+}
+
+.header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 4.5rem;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 25px rgba(255, 107, 152, 0.3);
+  position: relative;
+  display: inline-block;
+  letter-spacing: 1px;
+}
+
+.header h1::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  border-radius: 3px;
+  animation: widthPulse 3s infinite;
+}
+
+@keyframes widthPulse {
+  0%, 100% { width: 150px; }
+  50% { width: 200px; }
+}
+
+.header p {
+  font-size: 1.3rem;
+  max-width: 700px;
+  margin: 0 auto;
+  opacity: 0.8;
+  line-height: 1.7;
+}
+
+/* ===== FILTER BUTTONS ===== */
+.filter-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin: 0 auto 3rem;
+  flex-wrap: wrap;
+  max-width: 800px;
+  padding: 0 2rem;
+}
+
+.filter-btn {
+  padding: 0.8rem 2rem;
+  border: none;
+  border-radius: 50px;
+  background: var(--glass);
+  backdrop-filter: blur(10px);
+  color: var(--light);
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+}
+
+.filter-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: 0.5s;
+}
+
+.filter-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.filter-btn:hover::before {
+  left: 100%;
+}
+
+.filter-btn.active {
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  box-shadow: 0 5px 15px rgba(255, 107, 152, 0.4);
+  transform: translateY(-3px);
+}
+
+/* ===== PRODUCT GRID ===== */
+.cosmetics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 3rem;
+  padding: 0 3rem 5rem;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+/* ===== PRODUCT CARD ===== */
+.product-card {
+  background: var(--glass);
+  backdrop-filter: blur(15px);
+  border-radius: 25px;
+  overflow: hidden;
+  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-style: preserve-3d;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--glass-border);
+  cursor: pointer;
+  position: relative;
+  transform: translateZ(20px);
+}
+
+.product-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 0%, rgba(255, 107, 152, 0.15) 0%, transparent 70%);
+  transition: all 0.8s ease;
+  z-index: -1;
+}
+
+.product-card:hover {
+  transform: translateY(-15px) rotateX(5deg) rotateY(5deg) scale(1.03);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+}
+
+.product-card:hover::before {
+  transform: scale(1.2);
+  opacity: 0.5;
+}
+
+/* Product Image Container */
+.product-image {
+  height: 280px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #2a2a4a 0%, #1a1a2e 100%);
+}
+
+.product-image img {
+  max-width: 75%;
+  max-height: 75%;
+  object-fit: contain;
+  transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  filter: drop-shadow(0 15px 20px rgba(0, 0, 0, 0.4));
+  transform-style: preserve-3d;
+}
+
+.product-card:hover .product-image img {
+  transform: scale(1.15) rotate(5deg) translateZ(10px);
+  filter: drop-shadow(0 20px 25px rgba(0, 0, 0, 0.5));
+}
+
+/* Product Badge */
+.product-badge {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: var(--gold);
+  color: var(--dark);
+  padding: 0.5rem 1.2rem;
+  border-radius: 50px;
+  font-weight: bold;
+  font-size: 0.85rem;
+  box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  z-index: 2;
+  animation: badgePulse 2s infinite;
+}
+
+@keyframes badgePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* Product Info */
+.product-info {
+  padding: 2.5rem;
+  position: relative;
+}
+
+.product-category {
+  position: absolute;
+  top: -15px;
+  left: 25px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  padding: 0.4rem 1.2rem;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  box-shadow: 0 5px 15px rgba(255, 107, 152, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.product-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.7rem;
+  margin: 1rem 0 0.8rem;
+  color: var(--light);
+  line-height: 1.3;
+}
+
+.product-price {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1.2rem;
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+}
+
+.product-price::before {
+  content: '$';
+  font-size: 1.2rem;
+  margin-right: 3px;
+  opacity: 0.8;
+}
+
+.product-description {
+  opacity: 0.85;
+  margin-bottom: 1.8rem;
+  line-height: 1.7;
+  font-size: 0.95rem;
+}
+
+/* Color Options */
+.product-colors {
+  display: flex;
+  gap: 0.8rem;
+  margin-bottom: 2rem;
+}
+
+.color-option {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+  position: relative;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.color-option:hover {
+  transform: scale(1.2);
+}
+
+.color-option.active {
+  border-color: var(--light);
+  transform: scale(1.15);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+.color-option::after {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.color-option.active::after {
+  opacity: 1;
+}
+
+/* Add to Cart Button */
+.product-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  width: 100%;
+  padding: 1.2rem;
+  border: none;
+  border-radius: 50px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 5px 20px rgba(255, 107, 152, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.product-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: 0.5s;
+}
+
+.product-btn:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(255, 107, 152, 0.5);
+}
+
+.product-btn:hover::before {
+  left: 100%;
+}
+
+.product-btn:active {
+  transform: translateY(-2px);
+}
+
+/* ===== FLOATING COSMETIC ITEMS ===== */
+.floating-cosmetic {
+  position: fixed;
+  font-size: 2rem;
+  opacity: 0.1;
+  animation: floatCosmetic 20s infinite linear;
+  pointer-events: none;
+  z-index: -1;
+  filter: drop-shadow(0 0 5px currentColor);
+}
+
+@keyframes floatCosmetic {
+  0% {
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  25% {
+    transform: translate(50vw, 25vh) rotate(90deg) scale(1.2);
+  }
+  50% {
+    transform: translate(25vw, 50vh) rotate(180deg) scale(0.8);
+  }
+  75% {
+    transform: translate(75vw, 30vh) rotate(270deg) scale(1.1);
+  }
+  100% {
+    transform: translate(0, 0) rotate(360deg) scale(1);
+  }
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 1200px) {
+  .cosmetics-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 3rem 1.5rem;
+  }
+  
+  .header h1 {
+    font-size: 3rem;
+  }
+  
+  .header p {
+    font-size: 1.1rem;
+  }
+  
+  .filter-buttons {
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .filter-btn {
+    padding: 0.7rem 1.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .cosmetics-grid {
+    grid-template-columns: 1fr;
+    padding: 0 1.5rem 3rem;
+    gap: 2rem;
+  }
+  
+  .product-image {
+    height: 220px;
+  }
+  
+  .product-info {
+    padding: 1.8rem;
+  }
+  
+  .product-title {
+    font-size: 1.5rem;
+  }
+  
+  .product-price {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .header h1 {
+    font-size: 2.2rem;
+  }
+  
+  .header p {
+    font-size: 1rem;
+  }
+  
+  .filter-buttons {
+    gap: 0.8rem;
+  }
+  
+  .filter-btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.8rem;
+  }
+  
+  .product-badge {
+    font-size: 0.7rem;
+    padding: 0.4rem 0.8rem;
+  }
+  
+  .product-category {
+    font-size: 0.7rem;
+    padding: 0.3rem 0.9rem;
+  }
+  
+  .product-btn {
+    padding: 1rem;
+    font-size: 0.9rem;
+  }
+}
+        </style>
+  <meta charset="UTF-8">
+  <title>3D Luxury Cosmetics Gallery</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+  :root {
+    --primary: #ff6b98;
+    --secondary: #a18aff;
+    --accent: #5ce1e6;
+    --gold: #d4af37;
+    --dark: #1a1a2e;
+    --light: #333; /* Updated for readability on white bg */
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    background-color: white;
+    font-family: 'Montserrat', sans-serif;
+    color: var(--light);
+    overflow-x: hidden;
+    perspective: 1000px;
+  }
+
+  .header {
+    text-align: center;
+    padding: 3rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    border-radius: 3px;
+  }
+
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 20px rgba(255, 107, 152, 0.3);
+  }
+
+  .header p {
+    font-size: 1.2rem;
+    max-width: 700px;
+    margin: 0 auto;
+    opacity: 0.8;
+    color: var(--light);
+  }
+
+  .cosmetics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 3rem;
+    padding: 3rem;
+    max-width: 1500px;
+    margin: 0 auto;
+  }
+
+  .product-card {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform-style: preserve-3d;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+    position: relative;
+  }
+
+  .product-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 0%, rgba(255, 107, 152, 0.08) 0%, transparent 70%);
+    transition: all 0.8s ease;
+    z-index: -1;
+  }
+
+  .product-image {
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(45deg, #eee, #ddd);
+  }
+
+  .product-image img {
+    max-width: 80%;
+    max-height: 80%;
+    object-fit: contain;
+    transition: all 0.5s ease;
+    filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.1));
+  }
+
+  .product-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: var(--gold);
+    color: var(--dark);
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 0.8rem;
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+  }
+
+  .product-info {
+    padding: 2rem;
+    position: relative;
+    color: var(--light);
+  }
+
+  .product-category {
+    position: absolute;
+    top: -15px;
+    left: 20px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    padding: 0.3rem 1rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    box-shadow: 0 5px 15px rgba(255, 107, 152, 0.3);
+    color: white;
+  }
+
+  .product-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--light);
+  }
+
+  .product-price {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: var(--gold);
+  }
+
+  .product-description {
+    opacity: 0.9;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+    color: var(--light);
+  }
+
+  .product-colors {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .color-option {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+  }
+
+  .color-option:hover {
+    transform: scale(1.2);
+  }
+
+  .color-option.active {
+    border-color: var(--dark);
+    transform: scale(1.1);
+  }
+
+  .product-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    border-radius: 50px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 20px rgba(255, 107, 152, 0.3);
+  }
+
+  .product-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 107, 152, 0.4);
+  }
+
+  .product-btn:active {
+    transform: translateY(0);
+  }
+
+  .product-card:hover {
+    transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+  }
+
+  .product-card:hover .product-image img {
+    transform: scale(1.1) rotate(5deg);
+  }
+
+  .product-card:hover::before {
+    transform: scale(1.2);
+    opacity: 0.4;
+  }
+
+  .floating-particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .floating-particle {
+    position: absolute;
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    border-radius: 50%;
+    opacity: 0.1;
+    animation: float 15s infinite linear;
+  }
+
+  @keyframes float {
+    0% {
+      transform: translateY(0) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-100px) rotate(180deg);
+    }
+    100% {
+      transform: translateY(0) rotate(360deg);
+    }
+  }
+
+  .glow-effect {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 107, 152, 0.2) 0%, transparent 70%);
+    filter: blur(30px);
+    animation: pulse 8s infinite alternate;
+  }
+
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      opacity: 0.3;
+    }
+    100% {
+      transform: scale(1.5);
+      opacity: 0.1;
+    }
+  }
+
+  .glow-1 {
+    top: 20%;
+    left: 10%;
+  }
+
+  .glow-2 {
+    bottom: 10%;
+    right: 15%;
+    background: radial-gradient(circle, rgba(161, 138, 255, 0.2) 0%, transparent 70%);
+  }
+
+  .glow-3 {
+    top: 50%;
+    left: 50%;
+    background: radial-gradient(circle, rgba(92, 225, 230, 0.2) 0%, transparent 70%);
+  }
+
+  .filter-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .filter-btn {
+    padding: 0.7rem 1.5rem;
+    border: none;
+    border-radius: 50px;
+    background: rgba(0, 0, 0, 0.05);
+    color: var(--light);
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .filter-btn:hover,
+  .filter-btn.active {
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    box-shadow: 0 5px 15px rgba(255, 107, 152, 0.3);
+    color: white;
+  }
+
+  @media (max-width: 768px) {
+    .header h1 {
+      font-size: 2.5rem;
+    }
+
+    .cosmetics-grid {
+      grid-template-columns: 1fr;
+      padding: 1.5rem;
+    }
+  }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.17.0/dist/tf.min.js"></script>
+
+</head>
+<body>
+  <!-- Navigation Bar -->
+<nav style="background-color: #2d2d2d; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; color: #fff;">
+  <div style="font-size: 20px; font-weight: bold;">Delio Go Fast</div>
+  <div>
+    <a href="#ask" style="color: #fff; margin-right: 15px; text-decoration: none;">Ask Code</a>
+    <a href="#powerbi" style="color: #fff; margin-right: 15px; text-decoration: none;">Power BI</a>
+    <a href="#ai" style="color: #fff; margin-right: 15px; text-decoration: none;">AI / ML</a>
+    <a href="#drone" style="color: #fff; margin-right: 15px; text-decoration: none;">Drone</a>
+    <a href="#tensorflow" style="color: #fff; margin-right: 15px; text-decoration: none;">TensorFlow</a>
+    <a href="#hackathon" style="color: #fff; text-decoration: none;">Hackathon</a>
+  </div>
+</nav>
+
+  <div class="header">
+  <h1>Delio Go Fast</h1>
+  <p>Solve Your Coding Problems Fast</p>
+</div>
+
+<div class="cosmetics-grid">
+  <!-- Product 1 – Ask a Question -->
+  <div class="product-card" data-category="ask">
+    <div class="product-image">
+      <img src="https://uploads.onecompiler.io/43qbxf9xj/43qbxefpn/Screenshot%202025-07-11%20120940.png" alt="Ask Question">
+      <div class="product-badge">Ask a Question</div>
+    </div>
+    <div class="product-info">
+      <div class="product-category">Quick Support</div>
+      <h3 class="product-title">Submit Your Coding Issue</h3>
+      <div class="product-price">Free</div>
+      <p class="product-description">
+        Submit any coding issue and get a proper expert answer within 24 hours, with full code and explanation.
+      </p>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSeCAd1KS5S1u0N0wPesRiD83iolVUlj93GHXdLYz_qlG4YCfQ/viewform?usp=dialog" target="_blank"
+         style="font-size: 13px; padding: 6px 12px; background: #5a4b8c; color: #fff;
+                text-decoration: none; border-radius: 4px; display: inline-block;">
+        ➤ Submit Issue
+      </a>
+    </div>
+  </div>
+
+  <!-- Product 2 – Power BI Help -->
+  <div class="product-card" data-category="powerbi">
+    <div class="product-image">
+      <img src="https://uploads.onecompiler.io/43qbxf9xj/43qbxefpn/Screenshot%202025-07-11%20121007.png" alt="Power BI Help">
+      <div class="product-badge">Best</div>
+    </div>
+    <div class="product-info">
+      <div class="product-category">Power BI</div>
+      <h3 class="product-title">Power BI Help</h3>
+      <div class="product-price">Free</div>
+      <p class="product-description">
+        Facing issues in Power BI? Get expert help in 24 hours! Have a problem in DAX, visuals, or queries? Ask now.
+      </p>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSeCAd1KS5S1u0N0wPesRiD83iolVUlj93GHXdLYz_qlG4YCfQ/viewform?usp=dialog" target="_blank"
+         style="font-size: 13px; padding: 6px 12px; background: #5a4b8c; color: #fff;
+                text-decoration: none; border-radius: 4px; display: inline-block;">
+        ➤ Submit Issue
+      </a>
+    </div>
+  </div>
+
+  <!-- Product 3 – AI Support -->
+  <div class="product-card" data-category="ai">
+    <div class="product-image">
+      <img src="https://uploads.onecompiler.io/43qbxf9xj/43qbxefpn/Screenshot%202025-07-11%20121040.png" alt="AI Help">
+      <div class="product-badge">AI Help</div>
+    </div>
+    <div class="product-info">
+      <div class="product-category">AI / ML</div>
+      <h3 class="product-title">AI Code Support</h3>
+      <div class="product-price">Free – Expert Reply in 24 Hrs</div>
+      <p class="product-description">
+        Need help with Python, TensorFlow, OpenCV, Keras, or ML projects? Submit your question and get support within 24 hours.
+      </p>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSeCAd1KS5S1u0N0wPesRiD83iolVUlj93GHXdLYz_qlG4YCfQ/viewform?usp=dialog" target="_blank"
+         style="font-size: 13px; padding: 6px 12px; background: #5a4b8c; color: #fff;
+                text-decoration: none; border-radius: 4px; display: inline-block;">
+        ➤ Submit Issue
+      </a>
+    </div>
+  </div>
+
+  <!-- Product 4 – Drone + OpenCV Projects -->
+  <div class="product-card" data-category="drone">
+    <div class="product-image">
+      <img src="https://uploads.onecompiler.io/43qbxf9xj/43qbxefpn/Screenshot%202025-07-11%20121110.png" alt="Drone Projects">
+      <div class="product-badge">Limited</div>
+    </div>
+    <div class="product-info">
+      <div class="product-category">Drone + OpenCV</div>
+      <h3 class="product-title">Drone Vision Projects</h3>
+      <div class="product-price">Free Guidance</div>
+      <p class="product-description">
+        Build smart drone apps using OpenCV, YOLO, TensorFlow, and GPS! Get guidance on object tracking, accident detection, and more.
+      </p>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSeCAd1KS5S1u0N0wPesRiD83iolVUlj93GHXdLYz_qlG4YCfQ/viewform?usp=dialog" target="_blank"
+         style="font-size: 13px; padding: 6px 12px; background: #5a4b8c; color: #fff;
+                text-decoration: none; border-radius: 4px; display: inline-block;">
+        ➤ Submit Project Idea
+      </a>
+    </div>
+  </div>
+
+  <!-- Product 5 – TensorFlow/Keras Help -->
+  <div class="product-card" data-category="tensorflow">
+    <div class="product-image">
+      <img src="https://uploads.onecompiler.io/43qbxf9xj/43qbxefpn/Screenshot%202025-07-11%20121141.png" alt="TensorFlow Help">
+    </div>
+    <div class="product-info">
+      <div class="product-category">TensorFlow / Keras</div>
+      <h3 class="product-title">AI Model Assistance</h3>
+      <div class="product-price">Free Support</div>
+      <p class="product-description">
+        Need help building or fixing your AI models? Ask your question about model design, training, or deployment.
+      </p>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSeCAd1KS5S1u0N0wPesRiD83iolVUlj93GHXdLYz_qlG4YCfQ/viewform?usp=dialog" target="_blank"
+         style="font-size: 13px; padding: 6px 12px; background: #5a4b8c; color: #fff;
+                text-decoration: none; border-radius: 4px; display: inline-block;">
+        ➤ Ask Now
+      </a>
+    </div>
+  </div>
+
+  <!-- Product 6 – Hackathon Support -->
+  <div class="product-card" data-category="hackathon">
+    <div class="product-image">
+      <img src="https://uploads.onecompiler.io/43qbxf9xj/43qbxefpn/Screenshot%202025-07-11%20121156.png" alt="Hackathon Help">
+      <div class="product-badge">New</div>
+    </div>
+    <div class="product-info">
+      <div class="product-category">Hackathon</div>
+      <h3 class="product-title">Hackathon Project Help</h3>
+      <div class="product-price">Idea + Code + UI</div>
+      <p class="product-description">
+        Need a killer hackathon project? Get full idea, tech stack, GitHub code, and pitch slide — ready in 48 hours!
+      </p>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSeCAd1KS5S1u0N0wPesRiD83iolVUlj93GHXdLYz_qlG4YCfQ/viewform?usp=dialog" target="_blank"
+         style="font-size: 13px; padding: 6px 12px; background: #5a4b8c; color: #fff;
+                text-decoration: none; border-radius: 4px; display: inline-block;">
+        ➤ Request Hackathon Kit
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Visual Effects -->
+<div class="floating-particles" id="particles-js"></div>
+<div class="glow-effect glow-1"></div>
+<div class="glow-effect glow-2"></div>
+<div class="glow-effect glow-3"></div>
+
+
+  
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script>
+    // Initialize particles.js
+    particlesJS("particles-js", {
+      particles: {
+        number: { value: 60, density: { enable: true, value_area: 800 } },
+        color: { value: ["#ff6b98", "#a18aff", "#5ce1e6"] },
+        shape: { type: "circle", stroke: { width: 0, color: "#000000" } },
+        opacity: {
+          value: 0.5,
+          random: true,
+          anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false }
+        },
+        size: {
+          value: 3,
+          random: true,
+          anim: { enable: true, speed: 2, size_min: 0.1, sync: false }
+        },
+        line_linked: {
+          enable: true,
+          distance: 150,
+          color: "#ff6b98",
+          opacity: 0.2,
+          width: 1
+        },
+        move: {
+          enable: true,
+          speed: 1.5,
+          direction: "none",
+          random: true,
+          straight: false,
+          out_mode: "out",
+          bounce: false,
+          attract: { enable: true, rotateX: 600, rotateY: 1200 }
+        }
+      },
+      interactivity: {
+        detect_on: "canvas",
+        events: {
+          onhover: { enable: true, mode: "bubble" },
+          onclick: { enable: true, mode: "push" },
+          resize: true
+        },
+        modes: {
+          bubble: {
+            distance: 200,
+            size: 10,
+            duration: 2,
+            opacity: 0.8,
+            speed: 3
+          },
+          push: { particles_nb: 4 }
+        }
+      },
+      retina_detect: true
+    });
+
+    // Create floating cosmetics
+    const cosmetics = [
+      { icon: "lipstick", color: "#ff6b98" },
+      { icon: "eye", color: "#a18aff" },
+      { icon: "spa", color: "#5ce1e6" },
+      { icon: "spray-can", color: "#d4af37" },
+      { icon: "pump-soap", color: "#ffffff" }
+    ];
+
+    for (let i = 0; i < 15; i++) {
+      const item = document.createElement("div");
+      item.className = "floating-particle";
+      const randomCosmetic = cosmetics[Math.floor(Math.random() * cosmetics.length)];
+      item.style.background = `linear-gradient(45deg, ${randomCosmetic.color}, ${randomCosmetic.color}80)`;
+      item.style.width = `${Math.random() * 20 + 10}px`;
+      item.style.height = item.style.width;
+      item.style.left = `${Math.random() * 100}%`;
+      item.style.top = `${Math.random() * 100}%`;
+      item.style.animationDelay = `${Math.random() * 10}s`;
+      item.style.animationDuration = `${Math.random() * 10 + 10}s`;
+      document.body.appendChild(item);
+    }
+
+    // 3D card tilt effect
+    const cards = document.querySelectorAll(".product-card");
+    cards.forEach(card => {
+      card.addEventListener("mousemove", (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const angleX = (y - centerY) / 20;
+        const angleY = (centerX - x) / 20;
+        
+        card.style.transform = `rotateX(${angleX}deg) rotateY(${angleY}deg) scale(1.05)`;
+        
+        // Parallax effect for image
+        const img = card.querySelector(".product-image img");
+        img.style.transform = `translate(${(x - centerX) / 15}px, ${(y - centerY) / 15}px) rotate(${(x - centerX) / 50}deg)`;
+      });
+      
+      card.addEventListener("mouseleave", () => {
+        card.style.transform = "rotateX(0) rotateY(0) scale(1)";
+        const img = card.querySelector(".product-image img");
+        img.style.transform = "translate(0, 0) rotate(0)";
+      });
+    });
+
+    // Color selection
+    const colorOptions = document.querySelectorAll(".color-option");
+    colorOptions.forEach(option => {
+      option.addEventListener("click", function() {
+        this.parentElement.querySelectorAll(".color-option").forEach(opt => {
+          opt.classList.remove("active");
+        });
+        this.classList.add("active");
+      });
+    });
+
+    // Filter products
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    filterButtons.forEach(button => {
+      button.addEventListener("click", function() {
+        const filter = this.getAttribute("data-filter");
+        
+        filterButtons.forEach(btn => btn.classList.remove("active"));
+        this.classList.add("active");
+        
+        const products = document.querySelectorAll(".product-card");
+        products.forEach(product => {
+          if (filter === "all" || product.getAttribute("data-category") === filter) {
+            product.style.display = "block";
+          } else {
+            product.style.display = "none";
+          }
+        });
+      });
+    });
+
+    // Add to cart animation
+    const addToCartButtons = document.querySelectorAll(".product-btn");
+    addToCartButtons.forEach(button => {
+      button.addEventListener("click", function() {
+        const originalText = this.innerHTML;
+        this.innerHTML = '<i class="fas fa-check"></i> Added!';
+        this.style.background = "linear-gradient(90deg, #4cff8f, #5ce1e6)";
+        
+        setTimeout(() => {
+          this.innerHTML = originalText;
+          this.style.background = "linear-gradient(90deg, var(--primary), var(--secondary))";
+        }, 2000);
+      });
+    });
+
+    // Background animation
+    const glowEffects = document.querySelectorAll(".glow-effect");
+    glowEffects.forEach((effect, index) => {
+      effect.style.animationDelay = `${index * 2}s`;
+    });
+  </script>
+  <script>
+    // Initialize luxury cosmetics showcase
+document.addEventListener('DOMContentLoaded', function() {
+  // ===== PARTICLE BACKGROUND =====
+  particlesJS('particles-js', {
+    particles: {
+      number: { 
+        value: 80, 
+        density: { 
+          enable: true, 
+          value_area: 800 
+        } 
+      },
+      color: { 
+        value: ["#ff6b98", "#a18aff", "#5ce1e6", "#d4af37"] 
+      },
+      shape: {
+        type: ["circle", "triangle"],
+        stroke: { width: 0, color: "#000" },
+        polygon: { nb_sides: 5 }
+      },
+      opacity: {
+        value: 0.5,
+        random: true,
+        anim: { 
+          enable: true, 
+          speed: 1, 
+          opacity_min: 0.1, 
+          sync: false 
+        }
+      },
+      size: {
+        value: 4,
+        random: true,
+        anim: { 
+          enable: true, 
+          speed: 2, 
+          size_min: 0.3, 
+          sync: false 
+        }
+      },
+      line_linked: {
+        enable: true,
+        distance: 150,
+        color: "#ff6b98",
+        opacity: 0.3,
+        width: 1
+      },
+      move: {
+        enable: true,
+        speed: 1.5,
+        direction: "none",
+        random: true,
+        straight: false,
+        out_mode: "out",
+        bounce: false,
+        attract: { 
+          enable: true, 
+          rotateX: 600, 
+          rotateY: 1200 
+        }
+      }
+    },
+    interactivity: {
+      detect_on: "canvas",
+      events: {
+        onhover: { 
+          enable: true, 
+          mode: "bubble" 
+        },
+        onclick: { 
+          enable: true, 
+          mode: "push" 
+        },
+        resize: true
+      },
+      modes: {
+        bubble: {
+          distance: 200,
+          size: 10,
+          duration: 2,
+          opacity: 0.8,
+          speed: 3
+        },
+        push: { particles_nb: 4 },
+        repulse: { distance: 100, duration: 0.4 }
+      }
+    },
+    retina_detect: true
+  });
+
+  // ===== FLOATING COSMETIC ICONS =====
+  const cosmeticIcons = [
+    { name: '', color: '#ff6b98' },
+    { name: '', color: '#5ce1e6' },
+    { name: '', color: '#a18aff' },
+    { name: 'spray-can', color: '#d4af37' },
+    { name: 'brush', color: '#ffffff' },
+    { name: '', color: '#ff8e8e' }
+  ];
+
+  for (let i = 0; i < 20; i++) {
+    const icon = document.createElement('div');
+    icon.className = 'floating-cosmetic';
+    const randomIcon = cosmeticIcons[Math.floor(Math.random() * cosmeticIcons.length)];
+    
+    icon.innerHTML = `<i class="fas fa-${randomIcon.name}"></i>`;
+    icon.style.color = randomIcon.color;
+    icon.style.fontSize = `${Math.random() * 30 + 20}px`;
+    icon.style.left = `${Math.random() * 100}%`;
+    icon.style.top = `${Math.random() * 100}%`;
+    icon.style.animationDelay = `${Math.random() * 15}s`;
+    icon.style.animationDuration = `${Math.random() * 25 + 15}s`;
+    icon.style.opacity = Math.random() * 0.15 + 0.05;
+    
+    document.body.appendChild(icon);
+  }
+
+  // ===== 3D PRODUCT CARD EFFECTS =====
+  const productCards = document.querySelectorAll('.product-card');
+  
+  productCards.forEach(card => {
+    // Store original transform for reset
+    const originalTransform = card.style.transform;
+    
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      
+      // Calculate rotation angles based on mouse position
+      const rotateY = (x - centerX) / 20;
+      const rotateX = (centerY - y) / 20;
+      
+      // Apply 3D transform
+      card.style.transform = `
+        ${originalTransform}
+        rotateX(${rotateX}deg)
+        rotateY(${rotateY}deg)
+        scale(1.05)
+      `;
+      
+      // Parallax effect for product image
+      const img = card.querySelector('.product-image img');
+      const imgX = (x - centerX) / 15;
+      const imgY = (y - centerY) / 15;
+      img.style.transform = `translate(${imgX}px, ${imgY}px) rotate(${imgX / 5}deg)`;
+      
+      // Dynamic shadow based on mouse position
+      const shadowX = (centerX - x) / 20;
+      const shadowY = (centerY - y) / 20;
+      card.style.boxShadow = `
+        ${shadowX}px ${shadowY}px 30px rgba(0, 0, 0, 0.3),
+        ${-shadowX}px ${-shadowY}px 20px rgba(255, 255, 255, 0.05)
+      `;
+    });
+    
+    card.addEventListener('mouseleave', () => {
+      // Smooth reset to original state
+      card.style.transition = 'all 0.5s ease-out';
+      card.style.transform = originalTransform;
+      card.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.25)';
+      
+      const img = card.querySelector('.product-image img');
+      img.style.transition = 'all 0.5s ease-out';
+      img.style.transform = 'translate(0, 0) rotate(0)';
+      
+      // Remove transition after animation completes
+      setTimeout(() => {
+        card.style.transition = '';
+        img.style.transition = '';
+      }, 500);
+    });
+  });
+
+  // ===== COLOR SELECTOR =====
+  const colorOptions = document.querySelectorAll('.color-option');
+  
+  colorOptions.forEach(option => {
+    option.addEventListener('click', function() {
+      // Remove active class from siblings
+      this.parentNode.querySelectorAll('.color-option').forEach(opt => {
+        opt.classList.remove('active');
+      });
+      
+      // Add active class to clicked option
+      this.classList.add('active');
+      
+      // Add selection animation
+      this.style.animation = 'colorSelect 0.4s ease-out';
+      this.addEventListener('animationend', () => {
+        this.style.animation = '';
+      });
+    });
+  });
+
+  // ===== FILTER FUNCTIONALITY =====
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const productItems = document.querySelectorAll('.product-card');
+  
+  filterButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      // Update active state of filter buttons
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      this.classList.add('active');
+      
+      // Get filter category
+      const filter = this.dataset.filter;
+      
+      // Filter products
+      productItems.forEach(item => {
+        if (filter === 'all' || item.dataset.category === filter) {
+          // Show matching items with animation
+          item.style.display = 'block';
+          item.style.animation = 'fadeIn 0.6s ease-out';
+          item.addEventListener('animationend', () => {
+            item.style.animation = '';
+          });
+        } else {
+          // Hide non-matching items with animation
+          item.style.animation = 'fadeOut 0.4s ease-out';
+          item.addEventListener('animationend', () => {
+            item.style.display = 'none';
+            item.style.animation = '';
+          });
+        }
+      });
+      
+      // Add button click effect
+      this.style.transform = 'scale(0.95)';
+      setTimeout(() => {
+        this.style.transform = '';
+      }, 200);
+    });
+  });
+
+  // ===== ADD TO CART ANIMATION =====
+  const addToCartButtons = document.querySelectorAll('.product-btn');
+  
+  addToCartButtons.forEach(button => {
+    button.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      // Store original button state
+      const originalHTML = this.innerHTML;
+      const originalBg = this.style.background;
+      
+      // Create ripple effect
+      const ripple = document.createElement('span');
+      ripple.className = 'ripple-effect';
+      
+      // Set ripple position
+      const rect = this.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      ripple.style.left = `${x}px`;
+      ripple.style.top = `${y}px`;
+      this.appendChild(ripple);
+      
+      // Remove ripple after animation
+      setTimeout(() => {
+        ripple.remove();
+      }, 1000);
+      
+      // Change button state
+      this.innerHTML = '<i class="fas fa-check"></i> Added to Cart';
+      this.style.background = 'linear-gradient(90deg, #5ce1e6, #4cff8f)';
+      this.disabled = true;
+      
+      // Create floating cart item animation
+      const productCard = this.closest('.product-card');
+      const productImg = productCard.querySelector('.product-image img').cloneNode(true);
+      
+      productImg.style.position = 'fixed';
+      productImg.style.zIndex = '1000';
+      productImg.style.width = '60px';
+      productImg.style.height = '60px';
+      productImg.style.objectFit = 'contain';
+      productImg.style.pointerEvents = 'none';
+      productImg.style.transition = 'all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+      
+      // Position at product location
+      const imgRect = productCard.querySelector('.product-image img').getBoundingClientRect();
+      productImg.style.left = `${imgRect.left + imgRect.width/2 - 30}px`;
+      productImg.style.top = `${imgRect.top}px`;
+      
+      document.body.appendChild(productImg);
+      
+      // Animate to cart position (simulated)
+      setTimeout(() => {
+        productImg.style.left = 'calc(100% - 100px)';
+        productImg.style.top = '20px';
+        productImg.style.transform = 'scale(0.5) rotate(360deg)';
+        productImg.style.opacity = '0';
+      }, 10);
+      
+      // Remove after animation
+      setTimeout(() => {
+        productImg.remove();
+      }, 1000);
+      
+      // Reset button after delay
+      setTimeout(() => {
+        this.innerHTML = originalHTML;
+        this.style.background = originalBg;
+        this.disabled = false;
+      }, 2000);
+    });
+  });
+
+  // ===== DYNAMIC BACKGROUND EFFECTS =====
+  const glowEffects = document.querySelectorAll('.glow-orb');
+  
+  glowEffects.forEach((orb, index) => {
+    // Randomize animation duration and delay
+    const duration = 15 + Math.random() * 10;
+    const delay = index * 3 + Math.random() * 5;
+    
+    orb.style.animation = `float ${duration}s infinite ${delay}s ease-in-out`;
+    
+    // Random glow intensity
+    orb.style.opacity = 0.2 + Math.random() * 0.1;
+  });
+
+  // ===== SCROLL ANIMATIONS =====
+  const animateOnScroll = () => {
+    const scrollPosition = window.scrollY;
+    const windowHeight = window.innerHeight;
+    
+    // Animate header elements
+    const header = document.querySelector('.header');
+    if (scrollPosition > 50) {
+      header.style.transform = `translateY(${Math.min(scrollPosition / 5, 50)}px)`;
+      header.style.opacity = `${1 - Math.min(scrollPosition / 300, 0.2)}`;
+    } else {
+      header.style.transform = '';
+      header.style.opacity = '';
+    }
+    
+    // Animate product cards
+    productCards.forEach((card, index) => {
+      const cardPosition = card.getBoundingClientRect().top;
+      
+      if (cardPosition < windowHeight * 0.75) {
+        const delay = index * 0.1;
+        card.style.animation = `cardAppear 0.6s ${delay}s forwards`;
+        card.addEventListener('animationend', () => {
+          card.style.animation = '';
+        }, { once: true });
+      }
+    });
+  };
+  
+  // Initial animation trigger
+  animateOnScroll();
+  window.addEventListener('scroll', animateOnScroll);
+});
+
+// Add CSS animations dynamically
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  @keyframes fadeOut {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(20px); }
+  }
+  
+  @keyframes cardAppear {
+    from { opacity: 0; transform: translateY(50px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  
+  @keyframes colorSelect {
+    0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,255,255,0.3); }
+    50% { transform: scale(1.3); box-shadow: 0 0 0 10px rgba(255,255,255,0); }
+    100% { transform: scale(1.1); box-shadow: 0 0 0 0 rgba(255,255,255,0); }
+  }
+  
+  .ripple-effect {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: rgba(255,255,255,0.7);
+    border-radius: 50%;
+    transform: scale(0);
+    animation: ripple 0.6s ease-out;
+    pointer-events: none;
+  }
+  
+  @keyframes ripple {
+    to {
+      transform: scale(10);
+      opacity: 0;
+    }
+  }
+`;
+document.head.appendChild(style);
+  </script>
+  <script>
+    function voiceWelcome() {
+      const message = "Welcome! I am your AI assistant powered by TensorFlow.js.";
+
+      // Update text on screen
+      document.getElementById("assistant-msg").textContent = message;
+
+      // Speak the message using SpeechSynthesis
+      const utterance = new SpeechSynthesisUtterance(message);
+      utterance.lang = 'en-US';
+      utterance.rate = 1;
+      utterance.pitch = 1;
+      speechSynthesis.speak(utterance);
+    }
+  </script>
+</body>
+</html>
+</body>
+</html>
